@@ -25,26 +25,27 @@ This project can be easily integrated with a front-end application to create a f
 Follow these steps to get the project running on your local machine:
 
 1. Clone the repository:
-   \`\`\`
+   
    git clone https://github.com/username/E-Commerce-Backend.git
-   \`\`\`
+   
 
 2. Navigate to the project directory:
-   \`\`\`
+   
    cd E-Commerce-Backend
-   \`\`\`
+   
 
 3. Install dependencies:
-   \`\`\`
+   
    npm install
-   \`\`\`
+   
 
 4. Set up your environment variables in a `.env` file. See the `.env.example` file for required variables.
 
 5. Start the server:
-   \`\`\`
+   
    npm start
-   \`\`\`
+   
+
 
 ## Usage
 
