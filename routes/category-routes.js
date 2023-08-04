@@ -1,34 +1,66 @@
 const router = require('express').Router();
-const { Category, Product } = require('../../models');
+const { Category, Product } = require('../models');
 
 // GET all categories
 router.get('/', async (req, res) => {
-  const categories = await Category.findAll({ include: Product });
-  res.json(categories);
+  try {
+    const categoryData = await Category.findAll({
+      include: [{ model: Product }],
+    });
+    res.status(200).json(categoryData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
-// GET a single category by ID
+// GET one category
 router.get('/:id', async (req, res) => {
-  const category = await Category.findByPk(req.params.id, { include: Product });
-  res.json(category);
+  try {
+    const categoryData = await Category.findByPk(req.params.id, {
+      include: [{ model: Product }],
+    });
+    res.status(200).json(categoryData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 // POST a new category
 router.post('/', async (req, res) => {
-  const category = await Category.create(req.body);
-  res.json(category);
+  try {
+    const categoryData = await Category.create(req.body);
+    res.status(200).json(categoryData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
-// PUT to update a category
+// PUT update a category
 router.put('/:id', async (req, res) => {
-  const category = await Category.update(req.body, { where: { id: req.params.id } });
-  res.json(category);
+  try {
+    const categoryData = await Category.update(req.body, {
+      where: {
+        id: req.params.id,
+      },
+    });
+    res.status(200).json(categoryData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 // DELETE a category
 router.delete('/:id', async (req, res) => {
-  const category = await Category.destroy({ where: { id: req.params.id } });
-  res.json(category);
+  try {
+    const categoryData = await Category.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
+    res.status(200).json(categoryData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 module.exports = router;

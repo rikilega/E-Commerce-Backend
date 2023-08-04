@@ -1,20 +1,20 @@
-// Import required packages
+
 const express = require('express');
-const routes = require('./routes'); // Ensure you have an index.js file that exports your routes
+const routes = require('./routes');
 const sequelize = require('./config/connection');
 
-// Initialize an Express application
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Middleware to parse JSON
+// Middleware for parsing JSON and urlencoded form data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Use routes
+// Use the API routes
 app.use('/api', routes);
 
-// Sync Sequelize models to the MySQL database, then start Express.js server
+// Connect to the database and start the server
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => console.log(`App listening on port ${PORT}!`));
 });
+

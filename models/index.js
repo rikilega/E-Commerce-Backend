@@ -1,32 +1,30 @@
-const Sequelize = require('sequelize');
-const envConfigs = require('../config/config');
-const env = process.env.NODE_ENV || 'development';
-const config = envConfigs[env];
-const sequelize = new Sequelize(config.database, config.username, config.password, config);
-
-const Category = require('./Category');
 const Product = require('./Product');
+const Category = require('./Category');
 const Tag = require('./Tag');
 const ProductTag = require('./ProductTag');
 
-// Associations
+Product.belongsTo(Category, {
+  foreignKey: 'category_id',
+});
 
-// Products belong to Category
-Product.belongsTo(Category);
+Category.hasMany(Product, {
+  foreignKey: 'category_id',
+});
 
-// Categories have many Products
-Category.hasMany(Product);
+Product.belongsToMany(Tag, {
+  through: ProductTag,
+  foreignKey: 'product_id',
+});
 
-// Products belong to many Tags
-Product.belongsToMany(Tag, { through: ProductTag });
-
-// Tags belong to many Products
-Tag.belongsToMany(Product, { through: ProductTag });
+Tag.belongsToMany(Product, {
+  through: ProductTag,
+  foreignKey: 'tag_id',
+});
 
 module.exports = {
-  sequelize,
-  Category,
   Product,
+  Category,
   Tag,
   ProductTag,
 };
+
